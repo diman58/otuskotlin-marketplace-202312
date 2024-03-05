@@ -1,4 +1,4 @@
-rootProject.name = "ok-marketplace-be"
+rootProject.name = "currency-exchange-hub"
 
 dependencyResolutionManagement {
     versionCatalogs {
@@ -23,5 +23,3 @@ pluginManagement {
 plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.5.0"
 }
-
-include(":ok-marketplace-tmp")

@@ -3,14 +3,16 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform) apply false
 }
 
-group = "com.otus.otuskotlin.marketplace"
+group = "com.otus.otuskotlin.currency-exchange-hub"
 version = "0.0.1"
+
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+}
 
 subprojects {
     group = rootProject.group
     version = rootProject.version
-
-    repositories {
-        mavenCentral()
-    }
 }
