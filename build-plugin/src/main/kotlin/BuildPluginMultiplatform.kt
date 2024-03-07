@@ -1,3 +1,5 @@
+package com.otus.otuskotlin.marketplace.plugin
+
 import org.gradle.accessors.dm.LibrariesForLibs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
