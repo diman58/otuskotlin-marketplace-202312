@@ -1,0 +1,472 @@
+openapi: 3.0.3
+info:
+  title: "Currency Exchange Hub ${VERSION_APP}"
+  description: This is a hub where people can follow real time exchange rates and see rates from P2PExchangeOffer
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/v1
+tags:
+  - name: P2PExchangeOffer
+    description: Объявление о намерении обменять валюту
+paths:
+  /P2PExchangeOffer/create:
+    post:
+      tags:
+        - P2PExchangeOffer
+      summary: Create P2PExchangeOffer
+      operationId: P2PExchangeOfferCreate
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/P2PExchangeOfferCreateRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/P2PExchangeOfferCreateResponse'
+  /P2PExchangeOffer/read:
+    post:
+      tags:
+        - P2PExchangeOffer
+      summary: Read P2PExchangeOffer
+      operationId: P2PExchangeOfferRead
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/P2PExchangeOfferReadRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/P2PExchangeOfferReadResponse'
+  /P2PExchangeOffer/update:
+    post:
+      tags:
+        - P2PExchangeOffer
+      summary: Update P2PExchangeOffer
+      operationId: P2PExchangeOfferUpdate
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/P2PExchangeOfferUpdateRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/P2PExchangeOfferUpdateResponse'
+  /P2PExchangeOffer/delete:
+    post:
+      tags:
+        - P2PExchangeOffer
+      summary: Delete P2PExchangeOffer
+      operationId: P2PExchangeOfferDelete
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/P2PExchangeOfferDeleteRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/P2PExchangeOfferDeleteResponse'
+  /P2PExchangeOffer/search:
+    post:
+      tags:
+        - P2PExchangeOffer
+      summary: Search P2PExchangeOffer
+      operationId: P2PExchangeOfferSearch
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/P2PExchangeOfferSearchRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/P2PExchangeOfferSearchResponse'
+  /P2PExchangeOffer/feed:
+    post:
+      tags:
+        - P2PExchangeOffer
+      summary: Search P2PExchangeOffer
+      operationId: P2PExchangeOfferFeed
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/P2PExchangeOfferFeedRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/P2PExchangeOfferFeedResponse'
+
+components:
+  schemas:
+
+    IRequest:
+      type: object
+      description: Базовый интерфейс для всех запросов
+      properties:
+        requestType:
+          type: string
+          description: Поле-дескриминатор для вычисления типа запроса
+          example: create
+      discriminator:
+        propertyName: requestType
+        mapping:
+          create: '#/components/schemas/P2PExchangeOfferCreateRequest'
+          read:   '#/components/schemas/P2PExchangeOfferReadRequest'
+          update: '#/components/schemas/P2PExchangeOfferUpdateRequest'
+          delete: '#/components/schemas/P2PExchangeOfferDeleteRequest'
+          search: '#/components/schemas/P2PExchangeOfferSearchRequest'
+          offers: '#/components/schemas/P2PExchangeOfferFeedRequest'
+
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        group:
+          type: string
+        field:
+          type: string
+        message:
+          type: string
+
+    ResponseResult:
+      type: string
+      enum:
+        - success
+        - error
+
+    IResponse:
+      type: object
+      description: Базовый интерфейс для всех ответов
+      properties:
+        responseType:
+          type: string
+          description: Поле-дескриминатор для вычисления типа запроса
+          example: create
+        result:
+          $ref: '#/components/schemas/ResponseResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+
+      discriminator:
+        propertyName: responseType
+        mapping:
+          create: '#/components/schemas/P2PExchangeOfferCreateResponse'
+          read:   '#/components/schemas/P2PExchangeOfferReadResponse'
+          update: '#/components/schemas/P2PExchangeOfferUpdateResponse'
+          delete: '#/components/schemas/P2PExchangeOfferDeleteResponse'
+          search: '#/components/schemas/P2PExchangeOfferSearchResponse'
+          offers: '#/components/schemas/P2PExchangeOfferFeedResponse'
+          init: '#/components/schemas/P2PExchangeOfferInitResponse'
+
+    P2PExchangeOfferId:
+      type: string
+      description: Идентификатор объявления
+    P2PExchangeOfferTitle:
+      type: string
+      description: Название обьявления
+    DealSide:
+      type: string
+      description: 'Сторона сделки: спрос или предложение'
+      enum:
+        - demand
+        - supply
+    Currency:
+      type: string
+      description: Название валюты
+    Amount:
+      type: string
+      description: Сумма к обмену
+    Rate:
+      type: string
+      description: Курс продавца
+    Location:
+      type: string
+      description: Место совершения обмена
+    UserId:
+      type: string
+      description: Идентификатор пользователя
+    P2PExchangeOfferLock:
+      type: string
+      description: Версия оптимистичной блокировки
+    P2PExchangeOfferVisibility:
+      type: string
+      description: 'Тип видимости объявления. Возможные значения: видит только владелец, только зарегистрированный в системе пользователь, видимо всем'
+      enum:
+        - ownerOnly
+        - registeredOnly
+        - public
+
+    BaseP2PExchangeOffer:
+      type: object
+      description: Объект описывает свойства, одинаковые для create и update
+      properties:
+        id:
+          $ref: '#/components/schemas/P2PExchangeOfferId'
+        title:
+          $ref: '#/components/schemas/P2PExchangeOfferTitle'
+        offerType:
+          $ref: '#/components/schemas/DealSide'
+        offeredCurrency:
+          $ref: '#/components/schemas/Currency'
+        desiredCurrency:
+          $ref: '#/components/schemas/Currency'
+        amount:
+          $ref: '#/components/schemas/Amount'
+        rate:
+          $ref: '#/components/schemas/Rate'
+        expectedAmountInDesired:
+          $ref: '#/components/schemas/Amount'
+        location:
+          $ref: '#/components/schemas/Location'
+        visibility:
+          $ref: '#/components/schemas/P2PExchangeOfferVisibility'
+
+    P2PExchangeOfferInitResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+
+    P2PExchangeOfferCreateObject:
+      allOf:
+        - $ref: '#/components/schemas/BaseP2PExchangeOffer'
+
+    P2PExchangeOfferCreateRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/P2PExchangeOfferRequestDebug'
+        - type: object
+          properties:
+            P2PExchangeOffer:
+              $ref: '#/components/schemas/P2PExchangeOfferCreateObject'
+
+    P2PExchangeOfferReadObject:
+      allOf:
+        - type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/P2PExchangeOfferId'
+
+    P2PExchangeOfferReadRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/P2PExchangeOfferRequestDebug'
+        - type: object
+          properties:
+            P2PExchangeOffer:
+              $ref: '#/components/schemas/P2PExchangeOfferReadObject'
+
+    P2PExchangeOfferUpdateObject:
+      allOf:
+        - $ref: '#/components/schemas/BaseP2PExchangeOffer'
+        - type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/P2PExchangeOfferId'
+            lock:
+              $ref: '#/components/schemas/P2PExchangeOfferLock'
+
+    P2PExchangeOfferUpdateRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/P2PExchangeOfferRequestDebug'
+        - type: object
+          properties:
+            P2PExchangeOffer:
+              $ref: '#/components/schemas/P2PExchangeOfferUpdateObject'
+
+    P2PExchangeOfferDeleteObject:
+      allOf:
+        - type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/P2PExchangeOfferId'
+            lock:
+              $ref: '#/components/schemas/P2PExchangeOfferLock'
+
+    P2PExchangeOfferDeleteRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/P2PExchangeOfferRequestDebug'
+        - type: object
+          properties:
+            P2PExchangeOffer:
+              $ref: '#/components/schemas/P2PExchangeOfferDeleteObject'
+
+    P2PExchangeOfferSearchFilter:
+      type: object
+      description: Набор фильтров для поиска
+      properties:
+        searchString:
+          type: string
+          description: Поисковая строка, которая будет искаться в объявлениях
+
+    P2PExchangeOfferSearchRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/P2PExchangeOfferRequestDebug'
+        - type: object
+          properties:
+            P2PExchangeOfferFilter:
+              $ref: '#/components/schemas/P2PExchangeOfferSearchFilter'
+
+    P2PExchangeOfferFeedObject:
+      $ref: '#/components/schemas/P2PExchangeOfferReadObject'
+
+    P2PExchangeOfferFeedRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/P2PExchangeOfferRequestDebug'
+        - type: object
+          properties:
+            P2PExchangeOffer:
+              $ref: '#/components/schemas/P2PExchangeOfferFeedObject'
+
+    P2PExchangeOfferResponseObject:
+      allOf:
+        - $ref: '#/components/schemas/BaseP2PExchangeOffer'
+        - type: object
+          description: Объект, который возвращается в ответе бэкенда
+          properties:
+            id:
+              $ref: '#/components/schemas/P2PExchangeOfferId'
+            lock:
+              $ref: '#/components/schemas/P2PExchangeOfferLock'
+            permissions:
+              type: array
+              uniqueItems: true
+              items:
+                $ref: '#/components/schemas/P2PExchangeOfferPermissions'
+
+    P2PExchangeOfferPermissions:
+      type: string
+      description: Доступы для клиента для операций над объявлением
+      enum:
+        - read
+        - update
+        - delete
+        - makeVisiblePublic
+        - makeVisibleOwn
+        - makeVisibleGroup
+
+    P2PExchangeOfferResponseSingle:
+      allOf:
+        - type: object
+          description: Ответ с одним объектом объявления
+          properties:
+            P2PExchangeOffer:
+              $ref: '#/components/schemas/P2PExchangeOfferResponseObject'
+
+    P2PExchangeOfferResponseMulti:
+      allOf:
+        - type: object
+          description: Список найденных объектов
+          properties:
+            P2PExchangeOffer:
+              type: array
+              items:
+                $ref: '#/components/schemas/P2PExchangeOfferResponseObject'
+
+    P2PExchangeOfferCreateResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/P2PExchangeOfferResponseSingle'
+
+    P2PExchangeOfferReadResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/P2PExchangeOfferResponseSingle'
+
+    P2PExchangeOfferUpdateResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/P2PExchangeOfferResponseSingle'
+
+    P2PExchangeOfferDeleteResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/P2PExchangeOfferResponseSingle'
+
+    P2PExchangeOfferSearchResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/P2PExchangeOfferResponseMulti'
+
+    P2PExchangeOfferFeedResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/P2PExchangeOfferResponseSingle'
+        - $ref: '#/components/schemas/P2PExchangeOfferResponseMulti'
+
+    # STUBS ======================
+    P2PExchangeOfferRequestDebugMode:
+      type: string
+      enum:
+        - prod
+        - test
+        - stub
+
+    P2PExchangeOfferRequestDebug:
+      type: object
+      properties:
+        debug:
+          $ref: '#/components/schemas/P2PExchangeOfferDebug'
+
+    P2PExchangeOfferDebug:
+      type: object
+      properties:
+        mode:
+          $ref: '#/components/schemas/P2PExchangeOfferRequestDebugMode'
+        stub:
+          $ref: '#/components/schemas/P2PExchangeOfferRequestDebugStubs'
+
+    P2PExchangeOfferRequestDebugStubs:
+      type: string
+      description: Перечисления всех стабов
+      enum:
+        - success
+        - notFound
+        - badId
+        - badTitle
+        - badDescription
+        - badVisibility
+        - cannotDelete
+        - badSearchString
