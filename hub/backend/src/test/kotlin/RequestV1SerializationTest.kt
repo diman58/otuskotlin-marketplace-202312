@@ -22,7 +22,7 @@ class RequestV1SerializationTest {
             visibility = OfferVisibility.PUBLIC
         )
 
-    ).also { println(it) }
+    )
 
     @Test
     fun serialize() {
