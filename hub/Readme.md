@@ -20,9 +20,9 @@
 
 ## Эскиз FE
 
-![SignIn page](/images/signIn.webp)
-![SignUp page](/images/signUp.webp)
-![SignUp page](/images/welcomePage.webp)
-![SignUp page](/images/postListing.webp)
-![SignUp page](/images/listingsFeed.webp)
-![SignUp page](/images/realTimeFeed.webp)
+![SignIn page](/images/signIn.png)
+![SignUp page](/images/signUp.png)
+![SignUp page](/images/welcomePage.png)
+![SignUp page](/images/postListing.png)
+![SignUp page](/images/listingsFeed.png)
+![SignUp page](/images/realTimeFeed.png)
