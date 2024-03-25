@@ -12,97 +12,103 @@ fun HubContext.toTransport(): IResponse = when (val cmd = command) {
     HubCommand.NONE -> throw UnknownHubCommand(cmd)
 }
 
-fun HubContext.toTransportCreate() = ExchangeOfferCreateResponse(
+fun HubContext.toTransportCreate() = OfferCreateResponse(
     result = state.toResult(),
     errors = errors.toTransportErrors(),
-    exchangeOffer = exchangeOfferResponse.toTransport()
+    offer = offerResponse.toTransport()
 )
 
-private fun ExchangeOffer.toTransport(): ExchangeOfferResponseObject = ExchangeOfferResponseObject(
-    id = id.takeIf { it != ExchangeOfferId.NONE }?.asString(),
+private fun HubOffer.toTransport(): OfferResponseObject = OfferResponseObject(
+    offerId = id.takeIf { it != HubOfferId.NONE }?.asString(),
     title = title.takeIf { it.isNotBlank() },
     offerType = offerType.toTransport(),
     offeredCurrency = offeredCurrency.toTransport(),
     desiredCurrency = desiredCurrency.toTransport(),
     amount = amount.toTransport(),
     rate = rate.toTransport(),
-    expectedAmountInDesired = expectedAmount.toTransport(),
+    expectedAmount = expectedAmount.toTransport(),
+    location = location.toTransport(),
     visibility = visibility.toTransport(),
+    ownerId = ownerId.toTransport(),
+    lock = lock.toTransport(),
     permissions = permissionsClient.toTransport(),
 )
 
-fun HubContext.toTransportRead() = ExchangeOfferReadResponse(
+fun HubContext.toTransportRead() = OfferReadResponse(
     result = state.toResult(),
     errors = errors.toTransportErrors(),
-    exchangeOffer = exchangeOfferResponse.toTransport()
+    offer = offerResponse.toTransport()
 )
 
-fun HubContext.toTransportUpdate() = ExchangeOfferUpdateResponse(
+fun HubContext.toTransportUpdate() = OfferUpdateResponse(
     result = state.toResult(),
     errors = errors.toTransportErrors(),
-    exchangeOffer = exchangeOfferResponse.toTransport()
+    offer = offerResponse.toTransport()
 )
 
-fun HubContext.toTransportDelete() = ExchangeOfferDeleteResponse(
+fun HubContext.toTransportDelete() = OfferDeleteResponse(
     result = state.toResult(),
     errors = errors.toTransportErrors(),
-    exchangeOffer = exchangeOfferResponse.toTransport()
+    offer = offerResponse.toTransport()
 )
 
-fun HubContext.toTransportSearch() = ExchangeOfferSearchResponse(
+fun HubContext.toTransportSearch() = OfferSearchResponse(
     result = state.toResult(),
     errors = errors.toTransportErrors(),
-    exchangeOffer = exchangeOffersResponse.toTransport()
+    offer = offersResponse.toTransport()
 )
 
-fun HubContext.toTransportOffers() = ExchangeOfferFeedResponse(
+fun HubContext.toTransportOffers() = OfferFeedResponse(
     result = state.toResult(),
     errors = errors.toTransportErrors(),
-    exchangeOffer = exchangeOffersResponse.toTransport()
+    offer = offersResponse.toTransport()
 )
 
-fun Set<ExchangeOffer>.toTransport(): List<ExchangeOfferResponseObject>? = this
+fun Set<HubOffer>.toTransport(): List<OfferResponseObject>? = this
     .map { it.toTransport() }
     .toList()
     .takeIf { it.isNotEmpty() }
 
-private fun ExchangeOfferCurrency.toTransport() = this.asString()
-private fun  ExchangeOfferAmount.toTransport() = this.asString()
-private fun  ExchangeOfferRate.toTransport() = this.asString()
+private fun HubOfferCurrency.toTransport() = this.asString()
+private fun  HubOfferAmount.toTransport() = this.asString()
+private fun  HubOfferRate.toTransport() = this.asString()
+private fun  HubOfferLocation.toTransport() = this.asString()
+private fun  HubOfferUserId.toTransport() = this.asString()
+private fun  HubOfferLock.toTransport() = this.asString()
 
-private fun Set<ExchangeOfferPermissionClient>.toTransport(): Set<ExchangeOfferPermissions>? = this
+private fun Set<HubOfferPermissionClient>.toTransport(): Set<OfferPermissions>? = this
     .map { it.toTransport() }
     .toSet()
     .takeIf { it.isNotEmpty() }
 
-private fun ExchangeOfferPermissionClient.toTransport() = when (this) {
-    ExchangeOfferPermissionClient.READ -> ExchangeOfferPermissions.READ
-    ExchangeOfferPermissionClient.UPDATE -> ExchangeOfferPermissions.UPDATE
-    ExchangeOfferPermissionClient.MAKE_VISIBLE_OWNER -> ExchangeOfferPermissions.MAKE_VISIBLE_OWN
-    ExchangeOfferPermissionClient.MAKE_VISIBLE_GROUP -> ExchangeOfferPermissions.MAKE_VISIBLE_GROUP
-    ExchangeOfferPermissionClient.MAKE_VISIBLE_PUBLIC -> ExchangeOfferPermissions.MAKE_VISIBLE_PUBLIC
-    ExchangeOfferPermissionClient.DELETE -> ExchangeOfferPermissions.DELETE
+private fun HubOfferPermissionClient.toTransport() = when (this) {
+    HubOfferPermissionClient.READ -> OfferPermissions.READ
+    HubOfferPermissionClient.UPDATE -> OfferPermissions.UPDATE
+    HubOfferPermissionClient.MAKE_VISIBLE_OWNER -> OfferPermissions.MAKE_VISIBLE_OWN
+    HubOfferPermissionClient.MAKE_VISIBLE_GROUP -> OfferPermissions.MAKE_VISIBLE_GROUP
+    HubOfferPermissionClient.MAKE_VISIBLE_PUBLIC -> OfferPermissions.MAKE_VISIBLE_PUBLIC
+    HubOfferPermissionClient.DELETE -> OfferPermissions.DELETE
 }
 
-private fun HubVisibility.toTransport(): ExchangeOfferVisibility? = when (this) {
-    HubVisibility.VISIBLE_PUBLIC -> ExchangeOfferVisibility.PUBLIC
-    HubVisibility.VISIBLE_TO_GROUP -> ExchangeOfferVisibility.REGISTERED_ONLY
-    HubVisibility.VISIBLE_TO_OWNER -> ExchangeOfferVisibility.OWNER_ONLY
+private fun HubVisibility.toTransport(): OfferVisibility? = when (this) {
+    HubVisibility.VISIBLE_PUBLIC -> OfferVisibility.PUBLIC
+    HubVisibility.VISIBLE_TO_GROUP -> OfferVisibility.REGISTERED_ONLY
+    HubVisibility.VISIBLE_TO_OWNER -> OfferVisibility.OWNER_ONLY
     HubVisibility.NONE -> null
 }
 
-private fun HubDealSide.toTransport(): DealSide? = when (this) {
-    HubDealSide.DEMAND -> DealSide.DEMAND
-    HubDealSide.SUPPLY -> DealSide.SUPPLY
+private fun HubDealSide.toTransport(): OfferDealSide? = when (this) {
+    HubDealSide.DEMAND -> OfferDealSide.DEMAND
+    HubDealSide.SUPPLY -> OfferDealSide.SUPPLY
     HubDealSide.NONE -> null
 }
 
-private fun Set<HubError>.toTransportErrors(): List<Error>? = this
+private fun Set<HubError>.toTransportErrors(): List<OfferError>? = this
     .map { it.toTransport() }
     .toList()
     .takeIf { it.isNotEmpty() }
 
-private fun HubError.toTransport() = Error(
+private fun HubError.toTransport() = OfferError(
     code = code.takeIf { it.isNotBlank() },
     group = group.takeIf { it.isNotBlank() },
     field = field.takeIf { it.isNotBlank() },

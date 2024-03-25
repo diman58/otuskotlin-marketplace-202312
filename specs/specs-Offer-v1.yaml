@@ -9,21 +9,21 @@ info:
 servers:
   - url: http://localhost:8080/v1
 tags:
-  - name: ExchangeOffer
+  - name: offer
     description: Объявление о намерении обменять валюту
 paths:
-  /ExchangeOffer/create:
+  /offer/create:
     post:
       tags:
-        - ExchangeOffer
-      summary: Create ExchangeOffer
-      operationId: ExchangeOfferCreate
+        - offer
+      summary: Create offer
+      operationId: offerCreate
       requestBody:
         description: Request body
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ExchangeOfferCreateRequest'
+              $ref: '#/components/schemas/OfferCreateRequest'
         required: true
       responses:
         200:
@@ -31,19 +31,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ExchangeOfferCreateResponse'
-  /ExchangeOffer/read:
+                $ref: '#/components/schemas/OfferCreateResponse'
+  /offer/read:
     post:
       tags:
-        - ExchangeOffer
-      summary: Read ExchangeOffer
-      operationId: ExchangeOfferRead
+        - offer
+      summary: Read offer
+      operationId: offerRead
       requestBody:
         description: Request body
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ExchangeOfferReadRequest'
+              $ref: '#/components/schemas/OfferReadRequest'
         required: true
       responses:
         200:
@@ -51,19 +51,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ExchangeOfferReadResponse'
-  /ExchangeOffer/update:
+                $ref: '#/components/schemas/OfferReadResponse'
+  /offer/update:
     post:
       tags:
-        - ExchangeOffer
-      summary: Update ExchangeOffer
-      operationId: ExchangeOfferUpdate
+        - offer
+      summary: Update offer
+      operationId: offerUpdate
       requestBody:
         description: Request body
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ExchangeOfferUpdateRequest'
+              $ref: '#/components/schemas/OfferUpdateRequest'
         required: true
       responses:
         200:
@@ -71,19 +71,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ExchangeOfferUpdateResponse'
-  /ExchangeOffer/delete:
+                $ref: '#/components/schemas/OfferUpdateResponse'
+  /offer/delete:
     post:
       tags:
-        - ExchangeOffer
-      summary: Delete ExchangeOffer
-      operationId: ExchangeOfferDelete
+        - offer
+      summary: Delete offer
+      operationId: offerDelete
       requestBody:
         description: Request body
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ExchangeOfferDeleteRequest'
+              $ref: '#/components/schemas/OfferDeleteRequest'
         required: true
       responses:
         200:
@@ -91,19 +91,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ExchangeOfferDeleteResponse'
-  /ExchangeOffer/search:
+                $ref: '#/components/schemas/OfferDeleteResponse'
+  /offer/search:
     post:
       tags:
-        - ExchangeOffer
-      summary: Search ExchangeOffer
-      operationId: ExchangeOfferSearch
+        - offer
+      summary: Search offer
+      operationId: offerSearch
       requestBody:
         description: Request body
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ExchangeOfferSearchRequest'
+              $ref: '#/components/schemas/OfferSearchRequest'
         required: true
       responses:
         200:
@@ -111,19 +111,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ExchangeOfferSearchResponse'
-  /ExchangeOffer/feed:
+                $ref: '#/components/schemas/OfferSearchResponse'
+  /offer/feed:
     post:
       tags:
-        - ExchangeOffer
-      summary: Search ExchangeOffer
-      operationId: ExchangeOfferFeed
+        - offer
+      summary: Search offer
+      operationId: offerFeed
       requestBody:
         description: Request body
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ExchangeOfferFeedRequest'
+              $ref: '#/components/schemas/OfferFeedRequest'
         required: true
       responses:
         200:
@@ -131,7 +131,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ExchangeOfferFeedResponse'
+                $ref: '#/components/schemas/OfferFeedResponse'
 
 components:
   schemas:
@@ -147,14 +147,14 @@ components:
       discriminator:
         propertyName: requestType
         mapping:
-          create: '#/components/schemas/ExchangeOfferCreateRequest'
-          read:   '#/components/schemas/ExchangeOfferReadRequest'
-          update: '#/components/schemas/ExchangeOfferUpdateRequest'
-          delete: '#/components/schemas/ExchangeOfferDeleteRequest'
-          search: '#/components/schemas/ExchangeOfferSearchRequest'
-          offers: '#/components/schemas/ExchangeOfferFeedRequest'
+          create: '#/components/schemas/OfferCreateRequest'
+          read:   '#/components/schemas/OfferReadRequest'
+          update: '#/components/schemas/OfferUpdateRequest'
+          delete: '#/components/schemas/OfferDeleteRequest'
+          search: '#/components/schemas/OfferSearchRequest'
+          offers: '#/components/schemas/OfferFeedRequest'
 
-    Error:
+    OfferError:
       type: object
       properties:
         code:
@@ -185,26 +185,26 @@ components:
         errors:
           type: array
           items:
-            $ref: '#/components/schemas/Error'
+            $ref: '#/components/schemas/OfferError'
 
       discriminator:
         propertyName: responseType
         mapping:
-          create: '#/components/schemas/ExchangeOfferCreateResponse'
-          read:   '#/components/schemas/ExchangeOfferReadResponse'
-          update: '#/components/schemas/ExchangeOfferUpdateResponse'
-          delete: '#/components/schemas/ExchangeOfferDeleteResponse'
-          search: '#/components/schemas/ExchangeOfferSearchResponse'
-          offers: '#/components/schemas/ExchangeOfferFeedResponse'
-          init: '#/components/schemas/ExchangeOfferInitResponse'
+          create: '#/components/schemas/OfferCreateResponse'
+          read:   '#/components/schemas/OfferReadResponse'
+          update: '#/components/schemas/OfferUpdateResponse'
+          delete: '#/components/schemas/OfferDeleteResponse'
+          search: '#/components/schemas/OfferSearchResponse'
+          offers: '#/components/schemas/OfferFeedResponse'
+          init: '#/components/schemas/OfferInitResponse'
 
-    ExchangeOfferId:
+    OfferId:
       type: string
       description: Идентификатор объявления
-    ExchangeOfferTitle:
+    OfferTitle:
       type: string
       description: Название обьявления
-    DealSide:
+    OfferDealSide:
       type: string
       description: 'Сторона сделки: спрос или предложение'
       enum:
@@ -222,13 +222,13 @@ components:
     Location:
       type: string
       description: Место совершения обмена
-    UserId:
+    OwnerId:
       type: string
       description: Идентификатор пользователя
-    ExchangeOfferLock:
+    OfferLock:
       type: string
       description: Версия оптимистичной блокировки
-    ExchangeOfferVisibility:
+    OfferVisibility:
       type: string
       description: 'Тип видимости объявления. Возможные значения: видит только владелец, только зарегистрированный в системе пользователь, видимо всем'
       enum:
@@ -236,16 +236,14 @@ components:
         - registeredOnly
         - public
 
-    BaseExchangeOffer:
+    BaseOffer:
       type: object
       description: Объект описывает свойства, одинаковые для create и update
       properties:
-        id:
-          $ref: '#/components/schemas/ExchangeOfferId'
         title:
-          $ref: '#/components/schemas/ExchangeOfferTitle'
+          $ref: '#/components/schemas/OfferTitle'
         offerType:
-          $ref: '#/components/schemas/DealSide'
+          $ref: '#/components/schemas/OfferDealSide'
         offeredCurrency:
           $ref: '#/components/schemas/Currency'
         desiredCurrency:
@@ -254,84 +252,84 @@ components:
           $ref: '#/components/schemas/Amount'
         rate:
           $ref: '#/components/schemas/Rate'
-        expectedAmountInDesired:
+        expectedAmount:
           $ref: '#/components/schemas/Amount'
         location:
           $ref: '#/components/schemas/Location'
         visibility:
-          $ref: '#/components/schemas/ExchangeOfferVisibility'
+          $ref: '#/components/schemas/OfferVisibility'
 
-    ExchangeOfferInitResponse:
+    OfferInitResponse:
       allOf:
         - $ref: '#/components/schemas/IResponse'
 
-    ExchangeOfferCreateObject:
+    OfferCreateObject:
       allOf:
-        - $ref: '#/components/schemas/BaseExchangeOffer'
+        - $ref: '#/components/schemas/BaseOffer'
 
-    ExchangeOfferCreateRequest:
+    OfferCreateRequest:
       allOf:
         - $ref: '#/components/schemas/IRequest'
-        - $ref: '#/components/schemas/ExchangeOfferRequestDebug'
+        - $ref: '#/components/schemas/OfferRequestDebug'
         - type: object
           properties:
-            ExchangeOffer:
-              $ref: '#/components/schemas/ExchangeOfferCreateObject'
+            offer:
+              $ref: '#/components/schemas/OfferCreateObject'
 
-    ExchangeOfferReadObject:
+    OfferReadObject:
       allOf:
         - type: object
           properties:
-            id:
-              $ref: '#/components/schemas/ExchangeOfferId'
+            offerId:
+              $ref: '#/components/schemas/OfferId'
 
-    ExchangeOfferReadRequest:
+    OfferReadRequest:
       allOf:
         - $ref: '#/components/schemas/IRequest'
-        - $ref: '#/components/schemas/ExchangeOfferRequestDebug'
+        - $ref: '#/components/schemas/OfferRequestDebug'
         - type: object
           properties:
-            ExchangeOffer:
-              $ref: '#/components/schemas/ExchangeOfferReadObject'
+            offer:
+              $ref: '#/components/schemas/OfferReadObject'
 
-    ExchangeOfferUpdateObject:
+    OfferUpdateObject:
       allOf:
-        - $ref: '#/components/schemas/BaseExchangeOffer'
+        - $ref: '#/components/schemas/BaseOffer'
         - type: object
           properties:
-            id:
-              $ref: '#/components/schemas/ExchangeOfferId'
+            offerId:
+              $ref: '#/components/schemas/OfferId'
             lock:
-              $ref: '#/components/schemas/ExchangeOfferLock'
+              $ref: '#/components/schemas/OfferLock'
 
-    ExchangeOfferUpdateRequest:
+    OfferUpdateRequest:
       allOf:
         - $ref: '#/components/schemas/IRequest'
-        - $ref: '#/components/schemas/ExchangeOfferRequestDebug'
+        - $ref: '#/components/schemas/OfferRequestDebug'
         - type: object
           properties:
-            ExchangeOffer:
-              $ref: '#/components/schemas/ExchangeOfferUpdateObject'
+            offer:
+              $ref: '#/components/schemas/OfferUpdateObject'
 
-    ExchangeOfferDeleteObject:
+    OfferDeleteObject:
       allOf:
         - type: object
           properties:
-            id:
-              $ref: '#/components/schemas/ExchangeOfferId'
+            offerId:
+              $ref: '#/components/schemas/OfferId'
             lock:
-              $ref: '#/components/schemas/ExchangeOfferLock'
+              $ref: '#/components/schemas/OfferLock'
 
-    ExchangeOfferDeleteRequest:
+    OfferDeleteRequest:
       allOf:
         - $ref: '#/components/schemas/IRequest'
-        - $ref: '#/components/schemas/ExchangeOfferRequestDebug'
+        - $ref: '#/components/schemas/OfferRequestDebug'
         - type: object
           properties:
-            ExchangeOffer:
-              $ref: '#/components/schemas/ExchangeOfferDeleteObject'
+            offer:
+              $ref: '#/components/schemas/OfferDeleteObject'
 
-    ExchangeOfferSearchFilter:
+    OfferSearchFilter:
       type: object
       description: Набор фильтров для поиска
       properties:
@@ -339,44 +337,46 @@ components:
           type: string
           description: Поисковая строка, которая будет искаться в объявлениях
 
-    ExchangeOfferSearchRequest:
+    OfferSearchRequest:
       allOf:
         - $ref: '#/components/schemas/IRequest'
-        - $ref: '#/components/schemas/ExchangeOfferRequestDebug'
+        - $ref: '#/components/schemas/OfferRequestDebug'
         - type: object
           properties:
-            ExchangeOfferFilter:
-              $ref: '#/components/schemas/ExchangeOfferSearchFilter'
+            offerFilter:
+              $ref: '#/components/schemas/OfferSearchFilter'
 
-    ExchangeOfferFeedObject:
-      $ref: '#/components/schemas/ExchangeOfferReadObject'
+    OfferFeedObject:
+      $ref: '#/components/schemas/OfferReadObject'
 
-    ExchangeOfferFeedRequest:
+    OfferFeedRequest:
       allOf:
         - $ref: '#/components/schemas/IRequest'
-        - $ref: '#/components/schemas/ExchangeOfferRequestDebug'
+        - $ref: '#/components/schemas/OfferRequestDebug'
         - type: object
           properties:
-            ExchangeOffer:
-              $ref: '#/components/schemas/ExchangeOfferFeedObject'
+            offer:
+              $ref: '#/components/schemas/OfferFeedObject'
 
-    ExchangeOfferResponseObject:
+    OfferResponseObject:
       allOf:
-        - $ref: '#/components/schemas/BaseExchangeOffer'
+        - $ref: '#/components/schemas/BaseOffer'
         - type: object
           description: Объект, который возвращается в ответе бэкенда
           properties:
-            id:
-              $ref: '#/components/schemas/ExchangeOfferId'
+            offerId:
+              $ref: '#/components/schemas/OfferId'
+            ownerId:
+              $ref: '#/components/schemas/OwnerId'
             lock:
-              $ref: '#/components/schemas/ExchangeOfferLock'
+              $ref: '#/components/schemas/OfferLock'
             permissions:
               type: array
               uniqueItems: true
               items:
-                $ref: '#/components/schemas/ExchangeOfferPermissions'
+                $ref: '#/components/schemas/OfferPermissions'
 
-    ExchangeOfferPermissions:
+    OfferPermissions:
       type: string
       description: Доступы для клиента для операций над объявлением
       enum:
@@ -387,78 +387,78 @@ components:
         - makeVisibleOwn
         - makeVisibleGroup
 
-    ExchangeOfferResponseSingle:
+    OfferResponseSingle:
       allOf:
         - type: object
           description: Ответ с одним объектом объявления
           properties:
-            ExchangeOffer:
-              $ref: '#/components/schemas/ExchangeOfferResponseObject'
+            offer:
+              $ref: '#/components/schemas/OfferResponseObject'
 
-    ExchangeOfferResponseMulti:
+    OfferResponseMulti:
       allOf:
         - type: object
           description: Список найденных объектов
           properties:
-            ExchangeOffer:
+            offer:
               type: array
               items:
-                $ref: '#/components/schemas/ExchangeOfferResponseObject'
+                $ref: '#/components/schemas/OfferResponseObject'
 
-    ExchangeOfferCreateResponse:
+    OfferCreateResponse:
       allOf:
         - $ref: '#/components/schemas/IResponse'
-        - $ref: '#/components/schemas/ExchangeOfferResponseSingle'
+        - $ref: '#/components/schemas/OfferResponseSingle'
 
-    ExchangeOfferReadResponse:
+    OfferReadResponse:
       allOf:
         - $ref: '#/components/schemas/IResponse'
-        - $ref: '#/components/schemas/ExchangeOfferResponseSingle'
+        - $ref: '#/components/schemas/OfferResponseSingle'
 
-    ExchangeOfferUpdateResponse:
+    OfferUpdateResponse:
       allOf:
         - $ref: '#/components/schemas/IResponse'
-        - $ref: '#/components/schemas/ExchangeOfferResponseSingle'
+        - $ref: '#/components/schemas/OfferResponseSingle'
 
-    ExchangeOfferDeleteResponse:
+    OfferDeleteResponse:
       allOf:
         - $ref: '#/components/schemas/IResponse'
-        - $ref: '#/components/schemas/ExchangeOfferResponseSingle'
+        - $ref: '#/components/schemas/OfferResponseSingle'
 
-    ExchangeOfferSearchResponse:
+    OfferSearchResponse:
       allOf:
         - $ref: '#/components/schemas/IResponse'
-        - $ref: '#/components/schemas/ExchangeOfferResponseMulti'
+        - $ref: '#/components/schemas/OfferResponseMulti'
 
-    ExchangeOfferFeedResponse:
+    OfferFeedResponse:
       allOf:
         - $ref: '#/components/schemas/IResponse'
-        - $ref: '#/components/schemas/ExchangeOfferResponseSingle'
-        - $ref: '#/components/schemas/ExchangeOfferResponseMulti'
+        - $ref: '#/components/schemas/OfferResponseSingle'
+        - $ref: '#/components/schemas/OfferResponseMulti'
 
     # STUBS ======================
-    ExchangeOfferRequestDebugMode:
+    OfferRequestDebugMode:
       type: string
       enum:
         - prod
         - test
         - stub
 
-    ExchangeOfferRequestDebug:
+    OfferRequestDebug:
       type: object
       properties:
         debug:
-          $ref: '#/components/schemas/ExchangeOfferDebug'
+          $ref: '#/components/schemas/OfferDebug'
 
-    ExchangeOfferDebug:
+    OfferDebug:
       type: object
       properties:
         mode:
-          $ref: '#/components/schemas/ExchangeOfferRequestDebugMode'
+          $ref: '#/components/schemas/OfferRequestDebugMode'
         stub:
-          $ref: '#/components/schemas/ExchangeOfferRequestDebugStubs'
+          $ref: '#/components/schemas/OfferRequestDebugStubs'
 
-    ExchangeOfferRequestDebugStubs:
+    OfferRequestDebugStubs:
       type: string
       description: Перечисления всех стабов
       enum:

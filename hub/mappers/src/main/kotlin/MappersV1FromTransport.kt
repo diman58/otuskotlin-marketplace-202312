@@ -4,139 +4,138 @@ import models.*
 import stubs.HubStubs
 
 fun HubContext.fromTransport(request: IRequest) = when (request) {
-    is ExchangeOfferCreateRequest -> fromTransport(request)
-    is ExchangeOfferReadRequest -> fromTransport(request)
-    is ExchangeOfferUpdateRequest -> fromTransport(request)
-    is ExchangeOfferDeleteRequest -> fromTransport(request)
-    is ExchangeOfferSearchRequest -> fromTransport(request)
-    is ExchangeOfferFeedRequest -> fromTransport(request)
+    is OfferCreateRequest -> fromTransport(request)
+    is OfferReadRequest -> fromTransport(request)
+    is OfferUpdateRequest -> fromTransport(request)
+    is OfferDeleteRequest -> fromTransport(request)
+    is OfferSearchRequest -> fromTransport(request)
+    is OfferFeedRequest -> fromTransport(request)
     else -> throw UnknownRequestClass(request.javaClass)
 }
 
-fun HubContext.fromTransport(request: ExchangeOfferCreateRequest) {
+fun HubContext.fromTransport(request: OfferCreateRequest) {
     command = HubCommand.CREATE
-    exchangeOfferRequest = request.exchangeOffer?.toInternal() ?: ExchangeOffer()
+    offerRequest = request.offer?.toInternal() ?: HubOffer()
     workMode = request.debug.transportToWorkMode()
     stubCase = request.debug.transportToStubCase()
 }
 
-private fun ExchangeOfferCreateObject.toInternal(): ExchangeOffer = ExchangeOffer(
-    id = this.id.toExchangeOfferId(),
+private fun OfferCreateObject.toInternal(): HubOffer = HubOffer(
     title = this.title ?: "",
     offerType = this.offerType.fromTransport(),
-    offeredCurrency = this.offeredCurrency.toExchangeOfferCurrency(),
-    desiredCurrency = this.desiredCurrency.toExchangeOfferCurrency(),
-    amount = this.amount.toExchangeOfferAmount(),
-    rate = this.rate.toExchangeOfferRate(),
-    expectedAmount = this.expectedAmountInDesired.toExchangeOfferAmount(),
-    location = this.location.toExchangeOfferLocation(),
+    offeredCurrency = this.offeredCurrency.toOfferCurrency(),
+    desiredCurrency = this.desiredCurrency.toOfferCurrency(),
+    amount = this.amount.toOfferAmount(),
+    rate = this.rate.toOfferRate(),
+    expectedAmount = this.expectedAmount.toOfferAmount(),
+    location = this.location.toOfferLocation(),
     visibility = this.visibility.fromTransport(),
 )
 
-fun HubContext.fromTransport(request: ExchangeOfferReadRequest) {
+fun HubContext.fromTransport(request: OfferReadRequest) {
     command = HubCommand.READ
-    exchangeOfferRequest = request.exchangeOffer.toInternal()
+    offerRequest = request.offer.toInternal()
     workMode = request.debug.transportToWorkMode()
     stubCase = request.debug.transportToStubCase()
 }
 
-private fun ExchangeOfferReadObject?.toInternal(): ExchangeOffer = if (this != null) {
-    ExchangeOffer(id = id.toExchangeOfferId())
+private fun OfferReadObject?.toInternal(): HubOffer = if (this != null) {
+    HubOffer(id = offerId.toOfferId())
 } else {
-    ExchangeOffer()
+    HubOffer()
 }
 
 
-fun HubContext.fromTransport(request: ExchangeOfferUpdateRequest) {
+fun HubContext.fromTransport(request: OfferUpdateRequest) {
     command = HubCommand.UPDATE
-    exchangeOfferRequest = request.exchangeOffer?.toInternal() ?: ExchangeOffer()
+    offerRequest = request.offer?.toInternal() ?: HubOffer()
     workMode = request.debug.transportToWorkMode()
     stubCase = request.debug.transportToStubCase()
 }
 
-private fun ExchangeOfferUpdateObject.toInternal(): ExchangeOffer = ExchangeOffer(
-    id = this.id.toExchangeOfferId(),
+private fun OfferUpdateObject.toInternal(): HubOffer = HubOffer(
+    id = this.offerId.toOfferId(),
     title = this.title ?: "",
     offerType = this.offerType.fromTransport(),
-    offeredCurrency = this.offeredCurrency.toExchangeOfferCurrency(),
-    desiredCurrency = this.desiredCurrency.toExchangeOfferCurrency(),
-    amount = this.amount.toExchangeOfferAmount(),
-    rate = this.rate.toExchangeOfferRate(),
-    expectedAmount = this.amount.toExchangeOfferAmount(),
-    location = this.location.toExchangeOfferLocation(),
-    lock = this.lock.toExchangeOfferLock(),
+    offeredCurrency = this.offeredCurrency.toOfferCurrency(),
+    desiredCurrency = this.desiredCurrency.toOfferCurrency(),
+    amount = this.amount.toOfferAmount(),
+    rate = this.rate.toOfferRate(),
+    expectedAmount = this.expectedAmount.toOfferAmount(),
+    location = this.location.toOfferLocation(),
+    lock = this.lock.toOfferLock(),
     visibility = this.visibility.fromTransport(),
 )
 
-fun HubContext.fromTransport(request: ExchangeOfferDeleteRequest) {
+fun HubContext.fromTransport(request: OfferDeleteRequest) {
     command = HubCommand.DELETE
-    exchangeOfferRequest = request.exchangeOffer.toInternal()
+    offerRequest = request.offer.toInternal()
     workMode = request.debug.transportToWorkMode()
     stubCase = request.debug.transportToStubCase()
 }
 
-private fun ExchangeOfferDeleteObject?.toInternal(): ExchangeOffer = if (this != null) {
-    ExchangeOffer(
-        id = id.toExchangeOfferId(),
-        lock = lock.toExchangeOfferLock(),
+private fun OfferDeleteObject?.toInternal(): HubOffer = if (this != null) {
+    HubOffer(
+        id = offerId.toOfferId(),
+        lock = lock.toOfferLock(),
     )
 } else {
-    ExchangeOffer()
+    HubOffer()
 }
 
-fun HubContext.fromTransport(request: ExchangeOfferSearchRequest) {
+fun HubContext.fromTransport(request: OfferSearchRequest) {
     command = HubCommand.SEARCH
-    searchFilter = request.exchangeOfferFilter.toInternal()
+    searchFilter = request.offerFilter.toInternal()
     workMode = request.debug.transportToWorkMode()
     stubCase = request.debug.transportToStubCase()
 }
 
-private fun ExchangeOfferSearchFilter?.toInternal() = ExchangeOfferFilter(
+private fun OfferSearchFilter?.toInternal() = HubOfferFilter(
     searchString = this?.searchString ?: ""
 )
 
-fun HubContext.fromTransport(request: ExchangeOfferFeedRequest) {
+fun HubContext.fromTransport(request: OfferFeedRequest) {
     command = HubCommand.OFFERS
-    exchangeOfferRequest = request.exchangeOffer.toInternal()
+    offerRequest = request.offer.toInternal()
     workMode = request.debug.transportToWorkMode()
     stubCase = request.debug.transportToStubCase()
 }
 
-private fun String?.toExchangeOfferId() = this?.let { ExchangeOfferId(it) } ?: ExchangeOfferId.NONE
-private fun String?.toExchangeOfferLock() = this?.let { ExchangeOfferLock(it) } ?: ExchangeOfferLock.NONE
-private fun String?.toExchangeOfferCurrency() = this?.let { ExchangeOfferCurrency(it) } ?: ExchangeOfferCurrency.NONE
-private fun String?.toExchangeOfferAmount() = this?.let { ExchangeOfferAmount(it) } ?: ExchangeOfferAmount.NONE
-private fun String?.toExchangeOfferRate() = this?.let { ExchangeOfferRate(it) } ?: ExchangeOfferRate.NONE
-private fun String?.toExchangeOfferLocation() = this?.let { ExchangeOfferLocation(it) } ?: ExchangeOfferLocation.NONE
+private fun String?.toOfferId() = this?.let { HubOfferId(it) } ?: HubOfferId.NONE
+private fun String?.toOfferLock() = this?.let { HubOfferLock(it) } ?: HubOfferLock.NONE
+private fun String?.toOfferCurrency() = this?.let { HubOfferCurrency(it) } ?: HubOfferCurrency.NONE
+private fun String?.toOfferAmount() = this?.let { HubOfferAmount(it) } ?: HubOfferAmount.NONE
+private fun String?.toOfferRate() = this?.let { HubOfferRate(it) } ?: HubOfferRate.NONE
+private fun String?.toOfferLocation() = this?.let { HubOfferLocation(it) } ?: HubOfferLocation.NONE
 
-private fun ExchangeOfferDebug?.transportToWorkMode(): HubWorkMode = when (this?.mode) {
-    ExchangeOfferRequestDebugMode.PROD -> HubWorkMode.PROD
-    ExchangeOfferRequestDebugMode.TEST -> HubWorkMode.TEST
-    ExchangeOfferRequestDebugMode.STUB -> HubWorkMode.STUB
+private fun OfferDebug?.transportToWorkMode(): HubWorkMode = when (this?.mode) {
+    OfferRequestDebugMode.PROD -> HubWorkMode.PROD
+    OfferRequestDebugMode.TEST -> HubWorkMode.TEST
+    OfferRequestDebugMode.STUB -> HubWorkMode.STUB
     null -> HubWorkMode.PROD
 }
 
-private fun ExchangeOfferDebug?.transportToStubCase(): HubStubs = when (this?.stub) {
-    ExchangeOfferRequestDebugStubs.SUCCESS -> HubStubs.SUCCESS
-    ExchangeOfferRequestDebugStubs.NOT_FOUND -> HubStubs.NOT_FOUND
-    ExchangeOfferRequestDebugStubs.BAD_ID -> HubStubs.BAD_ID
-    ExchangeOfferRequestDebugStubs.BAD_TITLE -> HubStubs.BAD_TITLE
-    ExchangeOfferRequestDebugStubs.BAD_DESCRIPTION -> HubStubs.BAD_DESCRIPTION
-    ExchangeOfferRequestDebugStubs.BAD_VISIBILITY -> HubStubs.BAD_VISIBILITY
-    ExchangeOfferRequestDebugStubs.CANNOT_DELETE -> HubStubs.CANNOT_DELETE
-    ExchangeOfferRequestDebugStubs.BAD_SEARCH_STRING -> HubStubs.BAD_SEARCH_STRING
+private fun OfferDebug?.transportToStubCase(): HubStubs = when (this?.stub) {
+    OfferRequestDebugStubs.SUCCESS -> HubStubs.SUCCESS
+    OfferRequestDebugStubs.NOT_FOUND -> HubStubs.NOT_FOUND
+    OfferRequestDebugStubs.BAD_ID -> HubStubs.BAD_ID
+    OfferRequestDebugStubs.BAD_TITLE -> HubStubs.BAD_TITLE
+    OfferRequestDebugStubs.BAD_DESCRIPTION -> HubStubs.BAD_DESCRIPTION
+    OfferRequestDebugStubs.BAD_VISIBILITY -> HubStubs.BAD_VISIBILITY
+    OfferRequestDebugStubs.CANNOT_DELETE -> HubStubs.CANNOT_DELETE
+    OfferRequestDebugStubs.BAD_SEARCH_STRING -> HubStubs.BAD_SEARCH_STRING
     null -> HubStubs.NONE
 }
 
-private fun ExchangeOfferVisibility?.fromTransport(): HubVisibility = when (this) {
-    ExchangeOfferVisibility.PUBLIC -> HubVisibility.VISIBLE_PUBLIC
-    ExchangeOfferVisibility.OWNER_ONLY -> HubVisibility.VISIBLE_TO_OWNER
-    ExchangeOfferVisibility.REGISTERED_ONLY -> HubVisibility.VISIBLE_TO_GROUP
+private fun OfferVisibility?.fromTransport(): HubVisibility = when (this) {
+    OfferVisibility.PUBLIC -> HubVisibility.VISIBLE_PUBLIC
+    OfferVisibility.OWNER_ONLY -> HubVisibility.VISIBLE_TO_OWNER
+    OfferVisibility.REGISTERED_ONLY -> HubVisibility.VISIBLE_TO_GROUP
     null -> HubVisibility.NONE
 }
 
-private fun DealSide?.fromTransport(): HubDealSide = when (this) {
-    DealSide.DEMAND -> HubDealSide.DEMAND
-    DealSide.SUPPLY -> HubDealSide.SUPPLY
+private fun OfferDealSide?.fromTransport(): HubDealSide = when (this) {
+    OfferDealSide.DEMAND -> HubDealSide.DEMAND
+    OfferDealSide.SUPPLY -> HubDealSide.SUPPLY
     null -> HubDealSide.NONE
 }

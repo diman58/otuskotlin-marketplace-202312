@@ -12,9 +12,9 @@ data class HubContext(
 
     var requestId: HubRequestId = HubRequestId.NONE,
     var timeStart: Instant = Instant.NONE,
-    var exchangeOfferRequest: ExchangeOffer = ExchangeOffer(),
-    var searchFilter: ExchangeOfferFilter = ExchangeOfferFilter(),
+    var offerRequest: HubOffer = HubOffer(),
+    var searchFilter: HubOfferFilter = HubOfferFilter(),
 
-    var exchangeOfferResponse: ExchangeOffer = ExchangeOffer(),
-    var exchangeOffersResponse: MutableSet<ExchangeOffer> = mutableSetOf()
+    var offerResponse: HubOffer = HubOffer(),
+    var offersResponse: MutableSet<HubOffer> = mutableSetOf()
 )

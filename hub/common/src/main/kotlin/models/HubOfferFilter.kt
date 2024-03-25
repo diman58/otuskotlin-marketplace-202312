@@ -1,7 +1,7 @@
 package models
 
-data class ExchangeOfferFilter(
+data class HubOfferFilter(
     var searchString: String = "",
-    var ownerId: ExchangeOfferUserId = ExchangeOfferUserId.NONE,
+    var ownerId: HubOfferUserId = HubOfferUserId.NONE,
     var dealSide: HubDealSide = HubDealSide.NONE,
 )

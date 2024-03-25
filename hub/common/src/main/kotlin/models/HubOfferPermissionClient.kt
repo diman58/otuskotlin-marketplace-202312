@@ -1,6 +1,6 @@
 package models
 
-enum class ExchangeOfferPermissionClient {
+enum class HubOfferPermissionClient {
     READ,
     UPDATE,
     DELETE,
