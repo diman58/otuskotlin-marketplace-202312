@@ -1,4 +1,3 @@
-import DockerCompose
 import io.kotest.core.spec.Spec
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.core.test.TestCase
