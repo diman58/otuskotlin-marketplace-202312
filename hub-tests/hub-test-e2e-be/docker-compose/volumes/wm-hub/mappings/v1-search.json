@@ -1,0 +1,41 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/v1/offer/search"
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {
+      "responseType": "search",
+      "result": "success",
+      "ads": [
+        {
+          "title": "{{{jsonPath request.body '$.offer.title'}}}",
+          "offerType": "{{{jsonPath request.body '$.offer.offerType'}}}",
+          "offeredCurrency": "{{{jsonPath request.body '$.offer.offeredCurrency'}}}",
+          "desiredCurrency": "{{{jsonPath request.body '$.offer.desiredCurrency'}}}",
+          "amount": "{{{jsonPath request.body '$.offer.amount'}}}",
+          "rate": "{{{jsonPath request.body '$.offer.rate'}}}",
+          "expectedAmount": "{{{jsonPath request.body '$.offer.expectedAmount'}}}",
+          "location": "{{{jsonPath request.body '$.offer.location'}}}",
+          "visibility": "public"
+        },
+        {
+          "title": "{{{jsonPath request.body '$.offer.title'}}}",
+          "offerType": "{{{jsonPath request.body '$.offer.offerType'}}}",
+          "offeredCurrency": "{{{jsonPath request.body '$.offer.offeredCurrency'}}}",
+          "desiredCurrency": "{{{jsonPath request.body '$.offer.desiredCurrency'}}}",
+          "amount": "{{{jsonPath request.body '$.offer.amount'}}}",
+          "rate": "{{{jsonPath request.body '$.offer.rate'}}}",
+          "expectedAmount": "{{{jsonPath request.body '$.offer.expectedAmount'}}}",
+          "location": "{{{jsonPath request.body '$.offer.location'}}}",
+          "visibility": "public"
+        }
+      ]
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "transformers": ["response-template"]
+  }
+}

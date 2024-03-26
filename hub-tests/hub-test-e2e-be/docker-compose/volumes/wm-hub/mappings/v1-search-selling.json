@@ -1,0 +1,33 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/v1/offer/search",
+    "bodyPatterns": [
+      {"matchesJsonPath" : "$.offerFilter[?(@.searchString == 'Selling')]"}
+    ]
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {
+      "responseType": "search",
+      "result": "success",
+      "ads": [
+        {
+          "title": "p2p exchange offer",
+          "offerType": "demand",
+          "offeredCurrency": "USD",
+          "desiredCurrency": "CNY",
+          "amount": "1000",
+          "rate": "7",
+          "expectedAmount": "7000",
+          "location": "Turkey",
+          "visibility": "public"
+        }
+      ]
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "transformers": ["response-template"]
+  }
+}
