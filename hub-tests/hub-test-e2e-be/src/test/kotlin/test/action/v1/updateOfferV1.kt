@@ -1,45 +1,46 @@
+import com.otus.otuskotlin.hub.api.v1.models.OfferResponseObject
+import com.otus.otuskotlin.hub.api.v1.models.OfferUpdateObject
+import com.otus.otuskotlin.hub.api.v1.models.OfferUpdateRequest
+import com.otus.otuskotlin.hub.api.v1.models.OfferUpdateResponse
 import io.kotest.assertions.asClue
 import io.kotest.assertions.withClue
 import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
-import ru.otus.otuskotlin.marketplace.api.v1.models.*
-import ru.otus.otuskotlin.marketplace.blackbox.test.action.beValidId
-import ru.otus.otuskotlin.marketplace.blackbox.test.action.beValidLock
+import test.action.beValidOfferId
+import test.action.beValidOfferLock
 import test.action.v1.debug
 import test.action.v1.haveSuccessResult
 import test.action.v1.sendAndReceive
 
-suspend fun Client.updateAd(ad: AdUpdateObject): AdResponseObject =
-    updateAd(ad) {
+suspend fun Client.updateAd(offer: OfferUpdateObject): OfferResponseObject =
+    updateOffer(offer) {
         it should haveSuccessResult
-        it.ad shouldNotBe null
-        it.ad?.apply {
-            if (ad.title != null)
-                title shouldBe ad.title
-            if (ad.description != null)
-                description shouldBe ad.description
-            if (ad.adType != null)
-                adType shouldBe ad.adType
-            if (ad.visibility != null)
-                visibility shouldBe ad.visibility
+        it.offer shouldNotBe null
+        it.offer?.apply {
+            if (offer.title != null)
+                title shouldBe offer.title
+            if (offer.offerType != null)
+                offerType shouldBe offer.offerType
+            if (offer.visibility != null)
+                visibility shouldBe offer.visibility
         }
-        it.ad!!
+        it.offer!!
     }
 
-suspend fun <T> Client.updateAd(ad: AdUpdateObject, block: (AdUpdateResponse) -> T): T {
-    val id = ad.id
-    val lock = ad.lock
-    return withClue("updatedV1: $id, lock: $lock, set: $ad") {
-        id should beValidId
-        lock should beValidLock
+suspend fun <T> Client.updateOffer(offer: OfferUpdateObject, block: (OfferUpdateResponse) -> T): T {
+    val id = offer.offerId
+    val lock = offer.lock
+    return withClue("updatedOfferV1: $id, lock: $lock, set: $offer") {
+        id should beValidOfferId
+        lock should beValidOfferLock
 
         val response = sendAndReceive(
-            "ad/update", AdUpdateRequest(
+            "ad/update", OfferUpdateRequest(
                 debug = debug,
-                ad = ad.copy(id = id, lock = lock)
+                offer = offer.copy(offerId = id, lock = lock)
             )
-        ) as AdUpdateResponse
+        ) as OfferUpdateResponse
 
         response.asClue(block)
     }

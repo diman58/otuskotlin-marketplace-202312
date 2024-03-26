@@ -9,13 +9,15 @@ import io.kotest.assertions.asClue
 import io.kotest.assertions.withClue
 import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
+import test.action.beValidOfferId
+import test.action.beValidOfferLock
 
 suspend fun Client.deleteOffer(offer: OfferResponseObject) {
     val id = offer.offerId
     val lock = offer.lock
     withClue("deleteOfferV1: $id, lock: $lock") {
-        id should beValidId
-        lock should beValidLock
+        id should beValidOfferId
+        lock should beValidOfferLock
 
         val response = sendAndReceive(
             "offer/delete",
