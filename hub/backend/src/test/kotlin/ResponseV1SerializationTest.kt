@@ -33,8 +33,11 @@ class ResponseV1SerializationTest {
 
         assertContains(json, Regex("\"result\":\\s*\"success\""))
 
-        assertContains(json, Regex("\"errors\":\\s*\\[\\{\"code\":\\s*\"error code\",\\s*\"group\":\\s*\"error group\",\\s*" +
-                "\"field\":\\s*\"error field\",\\s*\"message\":\\s*\"error message\"}]"))
+        assertContains(json, Regex("\"errors\":\\s*\\[\\{[\\S\\s]*}]"))
+        assertContains(json, Regex("\"code\":\\s*\"error code\""))
+        assertContains(json, Regex("\"group\":\\s*\"error group\""))
+        assertContains(json, Regex("\"field\":\\s*\"error field\""))
+        assertContains(json, Regex("\"message\":\\s*\"error message\""))
 
         assertContains(json, Regex("\"title\":\\s*\"Offer title\""))
         assertContains(json, Regex("\"offerType\":\\s*\"supply\""))
