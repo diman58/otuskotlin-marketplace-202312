@@ -1,0 +1,472 @@
+openapi: 3.0.3
+info:
+  title: "Currency Exchange Hub ${VERSION_APP}"
+  description: This is a hub where people can follow real time exchange rates and see rates from ExchangeOffer
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/v1
+tags:
+  - name: offer
+    description: Объявление о намерении обменять валюту
+paths:
+  /offer/create:
+    post:
+      tags:
+        - offer
+      summary: Create offer
+      operationId: offerCreate
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OfferCreateRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OfferCreateResponse'
+  /offer/read:
+    post:
+      tags:
+        - offer
+      summary: Read offer
+      operationId: offerRead
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OfferReadRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OfferReadResponse'
+  /offer/update:
+    post:
+      tags:
+        - offer
+      summary: Update offer
+      operationId: offerUpdate
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OfferUpdateRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OfferUpdateResponse'
+  /offer/delete:
+    post:
+      tags:
+        - offer
+      summary: Delete offer
+      operationId: offerDelete
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OfferDeleteRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OfferDeleteResponse'
+  /offer/search:
+    post:
+      tags:
+        - offer
+      summary: Search offer
+      operationId: offerSearch
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OfferSearchRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OfferSearchResponse'
+  /offer/feed:
+    post:
+      tags:
+        - offer
+      summary: Search offer
+      operationId: offerFeed
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OfferFeedRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OfferFeedResponse'
+
+components:
+  schemas:
+
+    IRequest:
+      type: object
+      description: Базовый интерфейс для всех запросов
+      properties:
+        requestType:
+          type: string
+          description: Поле-дескриминатор для вычисления типа запроса
+          example: create
+      discriminator:
+        propertyName: requestType
+        mapping:
+          create: '#/components/schemas/OfferCreateRequest'
+          read:   '#/components/schemas/OfferReadRequest'
+          update: '#/components/schemas/OfferUpdateRequest'
+          delete: '#/components/schemas/OfferDeleteRequest'
+          search: '#/components/schemas/OfferSearchRequest'
+          offers: '#/components/schemas/OfferFeedRequest'
+
+    OfferError:
+      type: object
+      properties:
+        code:
+          type: string
+        group:
+          type: string
+        field:
+          type: string
+        message:
+          type: string
+
+    ResponseResult:
+      type: string
+      enum:
+        - success
+        - error
+
+    IResponse:
+      type: object
+      description: Базовый интерфейс для всех ответов
+      properties:
+        responseType:
+          type: string
+          description: Поле-дескриминатор для вычисления типа запроса
+          example: create
+        result:
+          $ref: '#/components/schemas/ResponseResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/OfferError'
+
+      discriminator:
+        propertyName: responseType
+        mapping:
+          create: '#/components/schemas/OfferCreateResponse'
+          read:   '#/components/schemas/OfferReadResponse'
+          update: '#/components/schemas/OfferUpdateResponse'
+          delete: '#/components/schemas/OfferDeleteResponse'
+          search: '#/components/schemas/OfferSearchResponse'
+          offers: '#/components/schemas/OfferFeedResponse'
+          init: '#/components/schemas/OfferInitResponse'
+
+    OfferId:
+      type: string
+      description: Идентификатор объявления
+    OfferTitle:
+      type: string
+      description: Название обьявления
+    OfferDealSide:
+      type: string
+      description: 'Сторона сделки: спрос или предложение'
+      enum:
+        - demand
+        - supply
+    Currency:
+      type: string
+      description: Название валюты
+    Amount:
+      type: string
+      description: Сумма к обмену
+    Rate:
+      type: string
+      description: Курс продавца
+    Location:
+      type: string
+      description: Место совершения обмена
+    OwnerId:
+      type: string
+      description: Идентификатор пользователя
+    OfferLock:
+      type: string
+      description: Версия оптимистичной блокировки
+    OfferVisibility:
+      type: string
+      description: 'Тип видимости объявления. Возможные значения: видит только владелец, только зарегистрированный в системе пользователь, видимо всем'
+      enum:
+        - ownerOnly
+        - registeredOnly
+        - public
+
+    BaseOffer:
+      type: object
+      description: Объект описывает свойства, одинаковые для create и update
+      properties:
+        title:
+          $ref: '#/components/schemas/OfferTitle'
+        offerType:
+          $ref: '#/components/schemas/OfferDealSide'
+        offeredCurrency:
+          $ref: '#/components/schemas/Currency'
+        desiredCurrency:
+          $ref: '#/components/schemas/Currency'
+        amount:
+          $ref: '#/components/schemas/Amount'
+        rate:
+          $ref: '#/components/schemas/Rate'
+        expectedAmount:
+          $ref: '#/components/schemas/Amount'
+        location:
+          $ref: '#/components/schemas/Location'
+        visibility:
+          $ref: '#/components/schemas/OfferVisibility'
+
+    OfferInitResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+
+    OfferCreateObject:
+      allOf:
+        - $ref: '#/components/schemas/BaseOffer'
+
+    OfferCreateRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/OfferRequestDebug'
+        - type: object
+          properties:
+            offer:
+              $ref: '#/components/schemas/OfferCreateObject'
+
+    OfferReadObject:
+      allOf:
+        - type: object
+          properties:
+            offerId:
+              $ref: '#/components/schemas/OfferId'
+
+    OfferReadRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/OfferRequestDebug'
+        - type: object
+          properties:
+            offer:
+              $ref: '#/components/schemas/OfferReadObject'
+
+    OfferUpdateObject:
+      allOf:
+        - $ref: '#/components/schemas/BaseOffer'
+        - type: object
+          properties:
+            offerId:
+              $ref: '#/components/schemas/OfferId'
+            lock:
+              $ref: '#/components/schemas/OfferLock'
+
+    OfferUpdateRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/OfferRequestDebug'
+        - type: object
+          properties:
+            offer:
+              $ref: '#/components/schemas/OfferUpdateObject'
+
+    OfferDeleteObject:
+      allOf:
+        - type: object
+          properties:
+            offerId:
+              $ref: '#/components/schemas/OfferId'
+            lock:
+              $ref: '#/components/schemas/OfferLock'
+
+    OfferDeleteRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/OfferRequestDebug'
+        - type: object
+          properties:
+            offer:
+              $ref: '#/components/schemas/OfferDeleteObject'
+
+    OfferSearchFilter:
+      type: object
+      description: Набор фильтров для поиска
+      properties:
+        searchString:
+          type: string
+          description: Поисковая строка, которая будет искаться в объявлениях
+
+    OfferSearchRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/OfferRequestDebug'
+        - type: object
+          properties:
+            offerFilter:
+              $ref: '#/components/schemas/OfferSearchFilter'
+
+    OfferFeedObject:
+      $ref: '#/components/schemas/OfferReadObject'
+
+    OfferFeedRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/OfferRequestDebug'
+        - type: object
+          properties:
+            offer:
+              $ref: '#/components/schemas/OfferFeedObject'
+
+    OfferResponseObject:
+      allOf:
+        - $ref: '#/components/schemas/BaseOffer'
+        - type: object
+          description: Объект, который возвращается в ответе бэкенда
+          properties:
+            offerId:
+              $ref: '#/components/schemas/OfferId'
+            ownerId:
+              $ref: '#/components/schemas/OwnerId'
+            lock:
+              $ref: '#/components/schemas/OfferLock'
+            permissions:
+              type: array
+              uniqueItems: true
+              items:
+                $ref: '#/components/schemas/OfferPermissions'
+
+    OfferPermissions:
+      type: string
+      description: Доступы для клиента для операций над объявлением
+      enum:
+        - read
+        - update
+        - delete
+        - makeVisiblePublic
+        - makeVisibleOwn
+        - makeVisibleGroup
+
+    OfferResponseSingle:
+      allOf:
+        - type: object
+          description: Ответ с одним объектом объявления
+          properties:
+            offer:
+              $ref: '#/components/schemas/OfferResponseObject'
+
+    OfferResponseMulti:
+      allOf:
+        - type: object
+          description: Список найденных объектов
+          properties:
+            offer:
+              type: array
+              items:
+                $ref: '#/components/schemas/OfferResponseObject'
+
+    OfferCreateResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/OfferResponseSingle'
+
+    OfferReadResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/OfferResponseSingle'
+
+    OfferUpdateResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/OfferResponseSingle'
+
+    OfferDeleteResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/OfferResponseSingle'
+
+    OfferSearchResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/OfferResponseMulti'
+
+    OfferFeedResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/OfferResponseSingle'
+        - $ref: '#/components/schemas/OfferResponseMulti'
+
+    # STUBS ======================
+    OfferRequestDebugMode:
+      type: string
+      enum:
+        - prod
+        - test
+        - stub
+
+    OfferRequestDebug:
+      type: object
+      properties:
+        debug:
+          $ref: '#/components/schemas/OfferDebug'
+
+    OfferDebug:
+      type: object
+      properties:
+        mode:
+          $ref: '#/components/schemas/OfferRequestDebugMode'
+        stub:
+          $ref: '#/components/schemas/OfferRequestDebugStubs'
+
+    OfferRequestDebugStubs:
+      type: string
+      description: Перечисления всех стабов
+      enum:
+        - success
+        - notFound
+        - badId
+        - badTitle
+        - badDescription
+        - badVisibility
+        - cannotDelete
+        - badSearchString
