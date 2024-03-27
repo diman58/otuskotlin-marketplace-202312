@@ -11,12 +11,12 @@ class ResponseV1SerializationTest {
         offer = OfferResponseObject(
             title = "Offer title",
             offerType = OfferDealSide.SUPPLY,
-            offeredCurrency = "offered currency",
-            desiredCurrency = "desired currency",
-            amount = "amount",
-            rate = "rate",
-            expectedAmount = "expected amount",
-            location = "location",
+            offeredCurrency = "RUR",
+            desiredCurrency = "CNY",
+            amount = "500000",
+            rate = "0.08",
+            expectedAmount = "40000",
+            location = "Moscow",
             visibility = OfferVisibility.OWNER_ONLY,
             offerId = "offer id",
             ownerId = "owner id",
@@ -41,12 +41,12 @@ class ResponseV1SerializationTest {
 
         assertContains(json, Regex("\"title\":\\s*\"Offer title\""))
         assertContains(json, Regex("\"offerType\":\\s*\"supply\""))
-        assertContains(json, Regex("\"offeredCurrency\":\\s*\"offered currency\""))
-        assertContains(json, Regex("\"desiredCurrency\":\\s*\"desired currency\""))
-        assertContains(json, Regex("\"amount\":\\s*\"amount\""))
-        assertContains(json, Regex("\"rate\":\\s*\"rate\""))
-        assertContains(json, Regex("\"expectedAmount\":\\s*\"expected amount\""))
-        assertContains(json, Regex("\"location\":\\s*\"location\""))
+        assertContains(json, Regex("\"offeredCurrency\":\\s*\"RUR\""))
+        assertContains(json, Regex("\"desiredCurrency\":\\s*\"CNY\""))
+        assertContains(json, Regex("\"amount\":\\s*\"500000\""))
+        assertContains(json, Regex("\"rate\":\\s*\"0.08\""))
+        assertContains(json, Regex("\"expectedAmount\":\\s*\"40000\""))
+        assertContains(json, Regex("\"location\":\\s*\"Moscow\""))
         assertContains(json, Regex("\"visibility\":\\s*\"ownerOnly\""))
         assertContains(json, Regex("\"offerId\":\\s*\"offer id\""))
         assertContains(json, Regex("\"ownerId\":\\s*\"owner id\""))

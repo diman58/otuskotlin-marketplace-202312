@@ -13,12 +13,12 @@ class RequestV1SerializationTest {
         offer = OfferCreateObject(
             title = "Offer title",
             offerType = OfferDealSide.DEMAND,
-            offeredCurrency = "offered currency",
-            desiredCurrency = "desired currency",
-            amount = "amount",
-            rate = "rate",
-            expectedAmount = "expected amount",
-            location = "location",
+            offeredCurrency = "RUR",
+            desiredCurrency = "CNY",
+            amount = "500000",
+            rate = "0.08",
+            expectedAmount = "40000",
+            location = "Moscow",
             visibility = OfferVisibility.PUBLIC
         )
 
