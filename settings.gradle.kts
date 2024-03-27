@@ -13,3 +13,4 @@ rootProject.name = "ok-hub-202312"
 includeBuild("lessons")
 includeBuild("hub")
 includeBuild("hub-tests")
+includeBuild("logging")
