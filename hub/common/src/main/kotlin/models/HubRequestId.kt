@@ -1,5 +1,3 @@
-package models
-
 @JvmInline
 value class HubRequestId(private val id: String) {
     fun asString() = id

@@ -1,7 +1,5 @@
 import com.otus.otuskotlin.hub.api.v1.models.*
 import kotlinx.datetime.Instant
-import models.*
-import stubs.HubStubs
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

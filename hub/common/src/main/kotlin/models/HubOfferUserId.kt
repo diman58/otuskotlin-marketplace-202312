@@ -1,5 +1,3 @@
-package models
-
 @JvmInline
 value class HubOfferUserId(private val id: String) {
     fun asString() = id

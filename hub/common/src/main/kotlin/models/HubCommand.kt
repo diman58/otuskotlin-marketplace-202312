@@ -1,5 +1,3 @@
-package models
-
 enum class HubCommand {
     NONE,
     CREATE,

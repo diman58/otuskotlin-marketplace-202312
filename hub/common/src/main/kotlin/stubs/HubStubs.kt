@@ -1,5 +1,3 @@
-package stubs
-
 enum class HubStubs {
     NONE,
     SUCCESS,

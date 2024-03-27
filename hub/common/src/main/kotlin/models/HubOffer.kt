@@ -1,5 +1,3 @@
-package models
-
 data class HubOffer(
     var id: HubOfferId = HubOfferId.NONE,
     var title: String = "",

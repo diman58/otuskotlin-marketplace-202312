@@ -1,5 +1,3 @@
-package models
-
 enum class HubVisibility {
     NONE,
     VISIBLE_TO_OWNER,

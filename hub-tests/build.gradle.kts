@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.kotlin.jvm) apply false
 }
 
-group = "com.otus.otuskotlin.marketplace.tests"
+group = "com.otus.otuskotlin.hub.tests"
 version = "0.0.1"
 
 allprojects {

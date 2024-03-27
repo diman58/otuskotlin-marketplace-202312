@@ -8,7 +8,7 @@ pluginManagement {
 plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.5.0"
 }
-rootProject.name = "ok-marketplace-202312"
+rootProject.name = "ok-hub-202312"
 
 includeBuild("lessons")
 includeBuild("hub")
