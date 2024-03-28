@@ -1,7 +1,7 @@
 package org.example.com.otus.otuskotlin.hub.logging.logback
 
 import ch.qos.logback.classic.Logger
-import com.otus.otuskotlin.hub.logging.common.IMpLogWrapper
+import com.otus.otuskotlin.hub.logging.common.IHubLogWrapper
 import com.otus.otuskotlin.hub.logging.common.LogLevel
 import com.otus.otuskotlin.hub.logging.logback.DefaultMarker
 import net.logstash.logback.argument.StructuredArguments
@@ -11,7 +11,7 @@ import org.slf4j.event.Level
 import org.slf4j.event.LoggingEvent
 import java.time.Instant
 
-class MpLogWrapperLogback(
+class HubLogWrapperLogback(
     /**
      * Экземпляр логера (Logback)
      */
@@ -21,7 +21,7 @@ class MpLogWrapperLogback(
      * логера о входе и выходе из функции.
      */
     override val loggerId: String = logger.name,
-) : IMpLogWrapper {
+) : IHubLogWrapper {
     /**
      * Основная функция для логирования
      */

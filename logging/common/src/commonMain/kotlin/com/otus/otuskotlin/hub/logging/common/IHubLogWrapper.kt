@@ -6,7 +6,7 @@ import kotlinx.datetime.Clock
 
 @OptIn(ExperimentalStdlibApi::class)
 @Suppress("unused")
-interface IMpLogWrapper: AutoCloseable {
+interface IHubLogWrapper: AutoCloseable {
     val loggerId: String
 
     fun log(
@@ -89,7 +89,7 @@ interface IMpLogWrapper: AutoCloseable {
     override fun close() {}
 
     companion object {
-        val DEFAULT = object: IMpLogWrapper {
+        val DEFAULT = object: IHubLogWrapper {
             override val loggerId: String = "NONE"
 
             override fun log(

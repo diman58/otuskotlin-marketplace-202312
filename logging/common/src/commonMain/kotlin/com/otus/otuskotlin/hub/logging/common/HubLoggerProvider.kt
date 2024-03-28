@@ -3,8 +3,8 @@ package com.otus.otuskotlin.hub.logging.common
 import kotlin.reflect.KClass
 import kotlin.reflect.KFunction
 
-class MpLoggerProvider(
-    private val provider: (String) -> IMpLogWrapper = { IMpLogWrapper.DEFAULT }
+class HubLoggerProvider(
+    private val provider: (String) -> IHubLogWrapper = { IHubLogWrapper.DEFAULT }
 ) {
     fun logger(loggerId: String) = provider(loggerId)
     fun logger(clazz: KClass<*>) = provider(clazz.qualifiedName ?: clazz.simpleName ?: "(unknown)")

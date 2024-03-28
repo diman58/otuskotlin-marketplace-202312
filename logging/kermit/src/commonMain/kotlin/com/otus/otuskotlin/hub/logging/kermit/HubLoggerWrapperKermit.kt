@@ -2,13 +2,13 @@ package com.otus.otuskotlin.hub.logging.kermit
 
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.Severity
-import com.otus.otuskotlin.hub.logging.common.IMpLogWrapper
+import com.otus.otuskotlin.hub.logging.common.IHubLogWrapper
 import com.otus.otuskotlin.hub.logging.common.LogLevel
 
-class MpLoggerWrapperKermit(
+class HubLoggerWrapperKermit(
     val logger: Logger,
     override val loggerId: String
-) : IMpLogWrapper {
+) : IHubLogWrapper {
 
     override fun log(
         msg: String,

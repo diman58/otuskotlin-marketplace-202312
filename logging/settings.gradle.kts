@@ -26,4 +26,4 @@ plugins {
 include(":common")
 include(":kermit")
 include(":logback")
-//include(":socket")
+include(":socket")
