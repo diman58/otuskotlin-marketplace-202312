@@ -23,3 +23,4 @@ pluginManagement {
 include(":backend")
 include(":common")
 include(":mappers")
+include(":logger")

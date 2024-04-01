@@ -1,4 +1,4 @@
-rootProject.name = "backend-build"
+rootProject.name = "plugins"
 
 dependencyResolutionManagement {
     versionCatalogs {

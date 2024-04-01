@@ -1,6 +1,4 @@
 import com.otus.otuskotlin.hub.api.v1.models.*
-import exceptions.UnknownHubCommand
-import models.*
 
 fun HubContext.toTransport(): IResponse = when (val cmd = command) {
     HubCommand.CREATE -> toTransportCreate()

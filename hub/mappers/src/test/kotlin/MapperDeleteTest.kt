@@ -1,7 +1,5 @@
 import com.otus.otuskotlin.hub.api.v1.models.*
 import kotlinx.datetime.Instant
-import models.*
-import stubs.HubStubs
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -16,7 +14,7 @@ class MapperDeleteTest {
                 stub = OfferRequestDebugStubs.CANNOT_DELETE
             ),
             offer = OfferDeleteObject(
-                offerId = "offer id",
+                offerId = "14221",
                 lock = "lock"
             )
         )
@@ -34,7 +32,7 @@ class MapperDeleteTest {
         assertEquals(HubRequestId.NONE, context.requestId)
         assertEquals(Instant.NONE, context.timeStart)
 
-        assertEquals(HubOfferId("offer id"), context.offerRequest.id)
+        assertEquals(HubOfferId("14221"), context.offerRequest.id)
         assertEquals("", context.offerRequest.title)
         assertEquals(HubDealSide.NONE, context.offerRequest.offerType)
         assertEquals(HubOfferCurrency.NONE, context.offerRequest.offeredCurrency)
@@ -72,15 +70,15 @@ class MapperDeleteTest {
             offerRequest = HubOffer(),
             searchFilter = HubOfferFilter(),
             offerResponse = HubOffer(
-                id = HubOfferId("Offer id"),
+                id = HubOfferId("144"),
                 title = "Offer title",
                 offerType = HubDealSide.DEMAND,
-                offeredCurrency = HubOfferCurrency("offered currency"),
-                desiredCurrency = HubOfferCurrency("desired currency"),
-                amount = HubOfferAmount("amount"),
-                rate = HubOfferRate("rate"),
-                expectedAmount = HubOfferAmount("expected amount"),
-                location = HubOfferLocation("location"),
+                offeredCurrency = HubOfferCurrency("USD"),
+                desiredCurrency = HubOfferCurrency("CNY"),
+                amount = HubOfferAmount("10000"),
+                rate = HubOfferRate("7"),
+                expectedAmount = HubOfferAmount("70000"),
+                location = HubOfferLocation("Turkey"),
                 ownerId = HubOfferUserId("11"),
                 lock = HubOfferLock("Unlocked"),
                 visibility = HubVisibility.VISIBLE_TO_OWNER,
@@ -101,15 +99,15 @@ class MapperDeleteTest {
             deleteResponse.errors
         )
 
-        assertEquals("Offer id", deleteResponse.offer?.offerId)
+        assertEquals("144", deleteResponse.offer?.offerId)
         assertEquals("Offer title", deleteResponse.offer?.title)
         assertEquals(OfferDealSide.DEMAND, deleteResponse.offer?.offerType)
-        assertEquals("offered currency", deleteResponse.offer?.offeredCurrency)
-        assertEquals("desired currency", deleteResponse.offer?.desiredCurrency)
-        assertEquals("amount", deleteResponse.offer?.amount)
-        assertEquals("rate", deleteResponse.offer?.rate)
-        assertEquals("expected amount", deleteResponse.offer?.expectedAmount)
-        assertEquals("location", deleteResponse.offer?.location)
+        assertEquals("USD", deleteResponse.offer?.offeredCurrency)
+        assertEquals("CNY", deleteResponse.offer?.desiredCurrency)
+        assertEquals("10000", deleteResponse.offer?.amount)
+        assertEquals("7", deleteResponse.offer?.rate)
+        assertEquals("70000", deleteResponse.offer?.expectedAmount)
+        assertEquals("Turkey", deleteResponse.offer?.location)
         assertEquals("11", deleteResponse.offer?.ownerId)
         assertEquals("Unlocked", deleteResponse.offer?.lock)
         assertEquals(OfferVisibility.OWNER_ONLY, deleteResponse.offer?.visibility)

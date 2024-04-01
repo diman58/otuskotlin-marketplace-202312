@@ -1,7 +1,5 @@
 import com.otus.otuskotlin.hub.api.v1.models.*
 import kotlinx.datetime.Instant
-import models.*
-import stubs.HubStubs
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -18,12 +16,12 @@ class MapperCreateTest {
             offer = OfferCreateObject(
                 title = "Offer title",
                 offerType = OfferDealSide.DEMAND,
-                offeredCurrency = "offered currency",
-                desiredCurrency = "desired currency",
-                amount = "amount",
-                rate = "rate",
-                expectedAmount = "expected amount",
-                location = "location",
+                offeredCurrency = "USD",
+                desiredCurrency = "CNY",
+                amount = "10000",
+                rate = "7",
+                expectedAmount = "70000",
+                location = "Turkey",
                 visibility = OfferVisibility.REGISTERED_ONLY
             )
         )
@@ -44,12 +42,12 @@ class MapperCreateTest {
         assertEquals(HubOfferId.NONE, context.offerRequest.id)
         assertEquals("Offer title", context.offerRequest.title)
         assertEquals(HubDealSide.DEMAND, context.offerRequest.offerType)
-        assertEquals(HubOfferCurrency("offered currency"), context.offerRequest.offeredCurrency)
-        assertEquals(HubOfferCurrency("desired currency"), context.offerRequest.desiredCurrency)
-        assertEquals(HubOfferAmount("amount"),  context.offerRequest.amount)
-        assertEquals(HubOfferRate("rate"),  context.offerRequest.rate)
-        assertEquals(HubOfferAmount("expected amount"),  context.offerRequest.expectedAmount)
-        assertEquals(HubOfferLocation("location"),  context.offerRequest.location)
+        assertEquals(HubOfferCurrency("USD"), context.offerRequest.offeredCurrency)
+        assertEquals(HubOfferCurrency("CNY"), context.offerRequest.desiredCurrency)
+        assertEquals(HubOfferAmount("10000"), context.offerRequest.amount)
+        assertEquals(HubOfferRate("7"), context.offerRequest.rate)
+        assertEquals(HubOfferAmount("70000"), context.offerRequest.expectedAmount)
+        assertEquals(HubOfferLocation("Turkey"), context.offerRequest.location)
         assertEquals(HubVisibility.VISIBLE_TO_GROUP, context.offerRequest.visibility)
 
         assertEquals(HubOfferFilter(), context.searchFilter)
@@ -78,19 +76,22 @@ class MapperCreateTest {
             offerRequest = HubOffer(),
             searchFilter = HubOfferFilter(),
             offerResponse = HubOffer(
-                id = HubOfferId("Offer id"),
+                id = HubOfferId("144"),
                 title = "Offer title",
                 offerType = HubDealSide.DEMAND,
-                offeredCurrency = HubOfferCurrency("offered currency"),
-                desiredCurrency = HubOfferCurrency("desired currency"),
-                amount = HubOfferAmount("amount"),
-                rate = HubOfferRate("rate"),
-                expectedAmount = HubOfferAmount("expected amount"),
-                location = HubOfferLocation("location"),
+                offeredCurrency = HubOfferCurrency("USD"),
+                desiredCurrency = HubOfferCurrency("CNY"),
+                amount = HubOfferAmount("10000"),
+                rate = HubOfferRate("7"),
+                expectedAmount = HubOfferAmount("70000"),
+                location = HubOfferLocation("Turkey"),
                 ownerId = HubOfferUserId("11"),
                 lock = HubOfferLock("Unlocked"),
                 visibility = HubVisibility.VISIBLE_PUBLIC,
-                permissionsClient = mutableSetOf(HubOfferPermissionClient.READ, HubOfferPermissionClient.UPDATE)
+                permissionsClient = mutableSetOf(
+                    HubOfferPermissionClient.READ,
+                    HubOfferPermissionClient.UPDATE
+                )
             ),
             offersResponse = mutableSetOf()
         )
@@ -99,22 +100,26 @@ class MapperCreateTest {
 
         assertEquals(ResponseResult.SUCCESS, createResponse.result)
 
-        assertEquals(listOf(OfferError("error code", "error group", "error field", "error message")),
-            createResponse.errors)
+        assertEquals(
+            listOf(OfferError("error code", "error group", "error field", "error message")),
+            createResponse.errors
+        )
 
-        assertEquals("Offer id", createResponse.offer?.offerId)
+        assertEquals("144", createResponse.offer?.offerId)
         assertEquals("Offer title", createResponse.offer?.title)
         assertEquals(OfferDealSide.DEMAND, createResponse.offer?.offerType)
-        assertEquals("offered currency", createResponse.offer?.offeredCurrency)
-        assertEquals("desired currency", createResponse.offer?.desiredCurrency)
-        assertEquals("amount", createResponse.offer?.amount)
-        assertEquals("rate", createResponse.offer?.rate)
-        assertEquals("expected amount", createResponse.offer?.expectedAmount)
-        assertEquals("location", createResponse.offer?.location)
+        assertEquals("USD", createResponse.offer?.offeredCurrency)
+        assertEquals("CNY", createResponse.offer?.desiredCurrency)
+        assertEquals("10000", createResponse.offer?.amount)
+        assertEquals("7", createResponse.offer?.rate)
+        assertEquals("70000", createResponse.offer?.expectedAmount)
+        assertEquals("Turkey", createResponse.offer?.location)
         assertEquals("11", createResponse.offer?.ownerId)
         assertEquals("Unlocked", createResponse.offer?.lock)
         assertEquals(OfferVisibility.PUBLIC, createResponse.offer?.visibility)
-        assertEquals(setOf(OfferPermissions.READ, OfferPermissions.UPDATE),
-            createResponse.offer?.permissions)
+        assertEquals(
+            setOf(OfferPermissions.READ, OfferPermissions.UPDATE),
+            createResponse.offer?.permissions
+        )
     }
 }

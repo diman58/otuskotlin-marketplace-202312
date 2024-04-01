@@ -1,5 +1,3 @@
-package models
-
 data class HubOfferFilter(
     var searchString: String = "",
     var ownerId: HubOfferUserId = HubOfferUserId.NONE,

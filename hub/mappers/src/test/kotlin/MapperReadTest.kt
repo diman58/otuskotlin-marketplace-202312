@@ -1,7 +1,5 @@
 import com.otus.otuskotlin.hub.api.v1.models.*
 import kotlinx.datetime.Instant
-import models.*
-import stubs.HubStubs
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -70,19 +68,22 @@ class MapperReadTest {
             offerRequest = HubOffer(),
             searchFilter = HubOfferFilter(),
             offerResponse = HubOffer(
-                id = HubOfferId("Offer id"),
+                id = HubOfferId("144"),
                 title = "Offer title",
                 offerType = HubDealSide.DEMAND,
-                offeredCurrency = HubOfferCurrency("offered currency"),
-                desiredCurrency = HubOfferCurrency("desired currency"),
-                amount = HubOfferAmount("amount"),
-                rate = HubOfferRate("rate"),
-                expectedAmount = HubOfferAmount("expected amount"),
-                location = HubOfferLocation("location"),
+                offeredCurrency = HubOfferCurrency("USD"),
+                desiredCurrency = HubOfferCurrency("CNY"),
+                amount = HubOfferAmount("10000"),
+                rate = HubOfferRate("7"),
+                expectedAmount = HubOfferAmount("70000"),
+                location = HubOfferLocation("Turkey"),
                 ownerId = HubOfferUserId("11"),
                 lock = HubOfferLock("Unlocked"),
                 visibility = HubVisibility.VISIBLE_TO_OWNER,
-                permissionsClient = mutableSetOf(HubOfferPermissionClient.DELETE, HubOfferPermissionClient.MAKE_VISIBLE_GROUP)
+                permissionsClient = mutableSetOf(
+                    HubOfferPermissionClient.DELETE,
+                    HubOfferPermissionClient.MAKE_VISIBLE_GROUP
+                )
             ),
             offersResponse = mutableSetOf()
         )
@@ -94,15 +95,15 @@ class MapperReadTest {
         assertEquals(listOf(OfferError("error code", "error group", "error field", "error message")),
             readResponse.errors)
 
-        assertEquals("Offer id", readResponse.offer?.offerId)
+        assertEquals("144", readResponse.offer?.offerId)
         assertEquals("Offer title", readResponse.offer?.title)
         assertEquals(OfferDealSide.DEMAND, readResponse.offer?.offerType)
-        assertEquals("offered currency", readResponse.offer?.offeredCurrency)
-        assertEquals("desired currency", readResponse.offer?.desiredCurrency)
-        assertEquals("amount", readResponse.offer?.amount)
-        assertEquals("rate", readResponse.offer?.rate)
-        assertEquals("expected amount", readResponse.offer?.expectedAmount)
-        assertEquals("location", readResponse.offer?.location)
+        assertEquals("USD", readResponse.offer?.offeredCurrency)
+        assertEquals("CNY", readResponse.offer?.desiredCurrency)
+        assertEquals("10000", readResponse.offer?.amount)
+        assertEquals("7", readResponse.offer?.rate)
+        assertEquals("70000", readResponse.offer?.expectedAmount)
+        assertEquals("Turkey", readResponse.offer?.location)
         assertEquals("11", readResponse.offer?.ownerId)
         assertEquals("Unlocked", readResponse.offer?.lock)
         assertEquals(OfferVisibility.OWNER_ONLY, readResponse.offer?.visibility)
