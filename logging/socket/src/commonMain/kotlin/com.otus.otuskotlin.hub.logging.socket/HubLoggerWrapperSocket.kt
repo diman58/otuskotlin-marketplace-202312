@@ -1,7 +1,7 @@
 package com.otus.otuskotlin.hub.logging.socket
 
 import com.otus.otuskotlin.hub.logging.common.IHubLogWrapper
-import com.otus.otuskotlin.hub.logging.common.LogLevel
+import LogLevel
 import io.ktor.network.selector.*
 import io.ktor.network.sockets.*
 import io.ktor.util.cio.*

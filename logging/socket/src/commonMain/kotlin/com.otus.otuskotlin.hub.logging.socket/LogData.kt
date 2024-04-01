@@ -1,6 +1,6 @@
 package com.otus.otuskotlin.hub.logging.socket
 
-import com.otus.otuskotlin.hub.logging.common.LogLevel
+import LogLevel
 import kotlinx.serialization.Serializable
 
 @Serializable

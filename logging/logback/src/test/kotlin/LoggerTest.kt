@@ -1,6 +1,6 @@
 import kotlinx.coroutines.runBlocking
 import org.slf4j.LoggerFactory
-import otus.otuskotlin.hub.logging.logback.mpLoggerLogback
+import otus.otuskotlin.hub.logging.logback.hubLoggerLogback
 import java.io.ByteArrayOutputStream
 import java.io.PrintStream
 import kotlin.test.Test
@@ -46,7 +46,7 @@ class LoggerTest {
 
         try {
             runBlocking {
-                val logger = mpLoggerLogback(this::class)
+                val logger = hubLoggerLogback(this::class)
                 logger.doWithLogging(logId, block = block)
             }
         } catch (ignore: RuntimeException) {

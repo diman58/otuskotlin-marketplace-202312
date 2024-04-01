@@ -3,7 +3,7 @@ package com.otus.otuskotlin.hub.logging.kermit
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.Severity
 import com.otus.otuskotlin.hub.logging.common.IHubLogWrapper
-import com.otus.otuskotlin.hub.logging.common.LogLevel
+import LogLevel
 
 class HubLoggerWrapperKermit(
     val logger: Logger,

@@ -1,5 +1,3 @@
-package com.otus.otuskotlin.hub.logging.common
-
 enum class LogLevel(
     private val levelInt: Int,
     private val levelStr: String,

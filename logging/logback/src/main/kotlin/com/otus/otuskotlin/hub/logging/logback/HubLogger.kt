@@ -6,11 +6,11 @@ import org.example.com.otus.otuskotlin.hub.logging.logback.HubLogWrapperLogback
 import org.slf4j.LoggerFactory
 import kotlin.reflect.KClass
 
-fun mpLoggerLogback(logger: Logger): IHubLogWrapper = HubLogWrapperLogback(
+fun hubLoggerLogback(logger: Logger): IHubLogWrapper = HubLogWrapperLogback(
     logger = logger,
     loggerId = logger.name,
 )
 
-fun mpLoggerLogback(clazz: KClass<*>): IHubLogWrapper = mpLoggerLogback(LoggerFactory.getLogger(clazz.java) as Logger)
+fun hubLoggerLogback(clazz: KClass<*>): IHubLogWrapper = hubLoggerLogback(LoggerFactory.getLogger(clazz.java) as Logger)
 @Suppress("unused")
-fun mpLoggerLogback(loggerId: String): IHubLogWrapper = mpLoggerLogback(LoggerFactory.getLogger(loggerId) as Logger)
+fun hubLoggerLogback(loggerId: String): IHubLogWrapper = hubLoggerLogback(LoggerFactory.getLogger(loggerId) as Logger)

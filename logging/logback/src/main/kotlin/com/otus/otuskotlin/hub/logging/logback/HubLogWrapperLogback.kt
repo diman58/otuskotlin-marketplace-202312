@@ -2,7 +2,7 @@ package org.example.com.otus.otuskotlin.hub.logging.logback
 
 import ch.qos.logback.classic.Logger
 import com.otus.otuskotlin.hub.logging.common.IHubLogWrapper
-import com.otus.otuskotlin.hub.logging.common.LogLevel
+import LogLevel
 import com.otus.otuskotlin.hub.logging.logback.DefaultMarker
 import net.logstash.logback.argument.StructuredArguments
 import org.slf4j.Marker

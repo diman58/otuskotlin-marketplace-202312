@@ -1,5 +1,6 @@
 package com.otus.otuskotlin.hub.logging.common
 
+import LogLevel
 import kotlin.time.ExperimentalTime
 import kotlin.time.measureTimedValue
 import kotlinx.datetime.Clock

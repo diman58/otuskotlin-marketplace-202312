@@ -3,5 +3,6 @@ data class HubError(
     val group: String = "",
     val field: String = "",
     val message: String = "",
+    val level: LogLevel = LogLevel.ERROR,
     val exception: Throwable? = null,
 )
